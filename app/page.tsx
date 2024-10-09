@@ -23,9 +23,18 @@ const Home = () => {
 
   return (
     <main className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
-      <h1 className="text-4xl font-bold text-center text-gray-100 mb-8">
-        Chat Page
-      </h1>
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-gray-100 mb-4">
+          Next-Gen AI-Powered Chat
+        </h1>
+        <h2 className="text-2xl font-semibold text-gray-300 mb-2">
+          Revolutionizing Communication
+        </h2>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          Experience the future of conversation with our cutting-edge AI chat.
+          Prepare to witness a transformation in how we interact and share information.
+        </p>
+      </div>
       <section className="max-w-3xl mx-auto w-full">
         <div className="bg-gray-800 shadow-lg rounded px-8 pt-6 pb-8 mb-4">
           {!response && (
