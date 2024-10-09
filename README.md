@@ -6,7 +6,10 @@ First, run the development server:
 
 ```bash
 # First time setup
-npm install
+    # create node_modules
+    npm install
+    # create .env file, with this line below (replace {API_KEY} with open AI API key )
+    OPENAI_API_KEY={API_KEY}
 
 # Run the app
 npm run dev
