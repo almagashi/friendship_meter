@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Confetti from 'react-confetti';
+import Image from 'next/image';
 
 const Home = () => {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
@@ -10,6 +11,7 @@ const Home = () => {
   const [isNoteVisible, setIsNoteVisible] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isBestie, setIsBestie] = useState(false);
+  const [isChinese, setIsChinese] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const prevFriendshipMeterRef = useRef(0);
@@ -87,11 +89,25 @@ const Home = () => {
     setMessages([...newMessages, { role: "assistant", content: data.content }]);
   };
 
+  const toggleLanguage = () => {
+    setIsChinese(!isChinese);
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col justify-between p-6 sm:p-12 font-sans">
+    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col justify-between p-6 sm:p-12 font-sans relative">
       {showConfetti && <Confetti />}
+      <div className="absolute top-4 left-4">
+        <button onClick={toggleLanguage} className="bg-gray-800 p-2 rounded-full">
+          <Image
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCI+PHBhdGggZD0iTTAgMGgyNHYyNEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xMi44NyAxNS4wN2wtMi41NC0yLjUxLjAzLS4wM2MxLjc0LTEuOTQgMi45OC00LjE3IDMuNzEtNi41M0gxN1Y0aC03VjJIOHYySDFWNmgxMS4xN0MxMS41IDcuOTIgMTAuNDQgOS43NSA5IDExLjM1IDguMDcgMTAuMzIgNy4zIDkuMTkgNi42OSA4aC0yYy43MyAxLjYzIDEuNzMgMy4xNyAyLjk4IDQuNTZsLTUuMDkgNS4wMkw0IDE5bDUtNSAzLjExIDMuMTEuNzYtMi4wNHpNMTguNSAxMGgtMkwxMiAyMmgybDEuMTItM2g0Ljc1TDIxIDIyaDJsLTQuNS0xMnptLTIuNjIgN2wxLjYyLTQuMzNMTTkuMTIgMTdsMS42MiA0LjMzaC0zLjI0eiIvPjwvc3ZnPg=="
+            alt="Toggle Language"
+            width={24}
+            height={24}
+          />
+        </button>
+      </div>
       <h1 className="text-4xl font-bold text-center text-gray-100 mb-16" style={{ fontFamily: 'Lobster, cursive' }}>
-        Friendship Meter
+        {isChinese ? "友誼指標" : "Friendship Meter"}
       </h1>
       <div className="w-full max-w-2xl mx-auto mb-12 relative">
         <div 
@@ -111,7 +127,7 @@ const Home = () => {
         </div>
         {isBestie && (
           <p className="text-2xl font-bold text-center text-purple-300 mt-4 animate-pulse" style={{ fontFamily: 'Lobster, cursive' }}>
-            Congratulations! You're now besties!
+            {isChinese ? "恭喜！你們現在是好朋友了！" : "Congratulations! You're now besties!"}
           </p>
         )}
       </div>
@@ -144,7 +160,7 @@ const Home = () => {
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              placeholder="Enter your message"
+              placeholder={isChinese ? "輸入您的訊息" : "Enter your message"}
               className="flex-grow px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 ease-in-out text-xs md:text-sm font-bold"
               style={{ fontFamily: 'Lobster, sans-serif' }}
             />
@@ -153,69 +169,9 @@ const Home = () => {
               className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 text-xs md:text-sm"
               style={{ fontFamily: 'Lobster, sans-serif' }}
             >
-              Send
+              {isChinese ? "發送" : "Send"}
             </button>
           </form>
-        </div>
-      </section>
-    </main>
-  );
-};
-
-export default Home;import { useState } from "react";
-
-const Home = () => {
-  const [message, setMessage] = useState("");
-  const [response, setResponse] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        messages: [{ role: "user", content: message }],
-      }),
-    });
-    const data = await res.json();
-    setResponse(data.content);
-    setMessage("");
-  };
-
-  return (
-    <main className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12">
-      <h1 className="text-4xl font-bold text-center text-gray-100 mb-8">
-        Chat Page
-      </h1>
-      <section className="max-w-3xl mx-auto w-full">
-        <div className="bg-gray-800 shadow-lg rounded px-8 pt-6 pb-8 mb-4">
-          {!response && (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col space-y-4"
-            >
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Enter your message"
-                className="px-3 py-2 bg-gray-700 text-white rounded"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              >
-                Send
-              </button>
-            </form>
-          )}
-          {response && (
-            <div className="mt-4 p-3 bg-gray-700 text-white rounded">
-              <p>{response}</p>
-            </div>
-          )}
         </div>
       </section>
     </main>
