@@ -1,13 +1,4 @@
 "use client";
-<<<<<<< HEAD
-import { useState } from "react";
-import Image from 'next/image';
-
-const Home = () => {
-  const [message, setMessage] = useState("");
-  const [response, setResponse] = useState("");
-  const [isChinese, setIsChinese] = useState(false);
-=======
 import { useState, useEffect, useRef } from "react";
 import Confetti from 'react-confetti';
 import Image from 'next/image';
@@ -76,7 +67,6 @@ const Home = () => {
       setIsNoteVisible(false);
     }, 2000);
   };
->>>>>>> combo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,17 +93,9 @@ const Home = () => {
     setIsChinese(!isChinese);
   };
 
-  const toggleLanguage = () => {
-    setIsChinese(!isChinese);
-  };
-
   return (
-<<<<<<< HEAD
-    <main className="min-h-screen bg-gray-900 py-6 flex flex-col justify-center sm:py-12 relative">
-=======
     <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex flex-col justify-between p-6 sm:p-12 font-sans relative">
       {showConfetti && <Confetti />}
->>>>>>> combo
       <div className="absolute top-4 left-4">
         <button onClick={toggleLanguage} className="bg-gray-800 p-2 rounded-full">
           <Image
@@ -124,48 +106,6 @@ const Home = () => {
           />
         </button>
       </div>
-<<<<<<< HEAD
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold text-gray-100 mb-4">
-          {isChinese ? "新一代人工智能驅動聊天" : "Next-Gen AI-Powered Chat"}
-        </h1>
-        <h2 className="text-2xl font-semibold text-gray-300 mb-2">
-          {isChinese ? "革新通訊" : "Revolutionizing Communication"}
-        </h2>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-          {isChinese
-            ? "體驗我們尖端人工智能聊天的未來。準備見證我們互動和分享信息方式的轉變。"
-            : "Experience the future of conversation with our cutting-edge AI chat. Prepare to witness a transformation in how we interact and share information."}
-        </p>
-      </div>
-      <section className="max-w-3xl mx-auto w-full">
-        <div className="bg-gray-800 shadow-lg rounded px-8 pt-6 pb-8 mb-4">
-          {!response && (
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col space-y-4"
-            >
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder={isChinese ? "輸入您的訊息" : "Enter your message"}
-                className="px-3 py-2 bg-gray-700 text-white rounded"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-              >
-                {isChinese ? "發送" : "Send"}
-              </button>
-            </form>
-          )}
-          {response && (
-            <div className="mt-4 p-3 bg-gray-700 text-white rounded">
-              <p>{response}</p>
-            </div>
-          )}
-=======
       <h1 className="text-4xl font-bold text-center text-gray-100 mb-16" style={{ fontFamily: 'Lobster, cursive' }}>
         {isChinese ? "友誼指標" : "Friendship Meter"}
       </h1>
@@ -232,7 +172,6 @@ const Home = () => {
               {isChinese ? "發送" : "Send"}
             </button>
           </form>
->>>>>>> combo
         </div>
       </section>
     </main>
